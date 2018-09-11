@@ -8,22 +8,36 @@ import Arrow from '../Components/Arrow'
 import './HomePage.css';
 
 class HomePage extends Component {
+  handlerOnClick = () => {
+    const totalPage = document.body.scrollHeight
+    const totalScroll = (window.scrollY + window.innerHeight) === totalPage
+      ? totalPage
+      : window.innerHeight
+
+    window.scroll({
+      top: totalScroll,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+
   render() {
     return (
       <Fragment>
         <div className="content">
           <div className="content-text">
-            <FadeAnimation types={['fadeIn', 'fadeUp']} time={'one'}>
+            <FadeAnimation types={['fadeIn', 'fadeDown']} time={'one'}>
               <TopParallax>
                 <p>Welcome to my first cover page</p>
               </TopParallax>
             </FadeAnimation>
           </div>
-          <Arrow
-            position='bottom'
-            arrowColor='000000'
-            wrapper={{ color: 'ffffff', shape: 'circle' }}
-          />
+            <Arrow
+              position='bottom'
+              arrowColor='ffffff'
+              // wrapper={{ color: 'ffffff', shape: 'square' }}
+              handlerOnClick={this.handlerOnClick}
+            />
         </div>
         <LazyLoad
           retrieveData={this.props.retrieveData}
@@ -34,10 +48,11 @@ class HomePage extends Component {
             this.props.feed.map((hike, index) => {
               return (
                 <FadeAnimation
+                  key={index}
                   types={['fadeIn', 'fadeUp']}
                   time={'one'}
                 >
-                  <div key={index} className="section">
+                  <div className="section">
                     <div className={`${index % 2 !== 0 ? 'first' : 'second'} section-description`}>
                         <div className="section-description-content">
                           <h2>{hike.title}</h2>

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import FadeAnimation from '../FadeAnimation'
 
 import './Arrow.css'
 
@@ -26,7 +27,8 @@ const Arrow = ({
   position,
   customDimesions,
   arrowColor,
-  wrapper
+  wrapper, 
+  handlerOnClick
 }) => {
   return (
     <div
@@ -35,13 +37,17 @@ const Arrow = ({
       }}
       className={`arrow-wrapper ${arrowClasses[position]} ${wrapperSquare[wrapper.shape]}`}
     >
-      <div
-        className={`arrow ${direction[position]}`}
-        style={{
-          ...customDimesions, 
-          borderColor: `#${arrowColor}`
-        }}>
-      </div>
+      <FadeAnimation types={['fadeIn', 'fadeDown']} time={'one'}>
+        <div
+          className={`arrow ${direction[position]}`}
+          style={{
+            ...customDimesions, 
+            borderColor: `#${arrowColor}`
+          }}
+          onClick={handlerOnClick}
+        >
+        </div>
+      </FadeAnimation>
     </div>
   )
 }
@@ -53,7 +59,8 @@ Arrow.defaultProps = {
   wrapper: {
     color: 'transparent',
     shape: 'square'
-  }
+  },
+  handlerOnClick: () => {}
 }
 
 Arrow.propTypes = {
@@ -63,7 +70,8 @@ Arrow.propTypes = {
   wrapper: PropTypes.shape({
     color: PropTypes.string,
     shape: PropTypes.string
-  })
+  }),
+  handlerOnClick: PropTypes.func
 }
 
 export default Arrow
