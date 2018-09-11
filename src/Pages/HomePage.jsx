@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 import TopParallax from '../Components/TopParallax'
 import LazyLoad from '../Components/LazyLoad'
 import FadeAnimation from '../Components/FadeAnimation'
+import Arrow from '../Components/Arrow'
 
 import './HomePage.css';
 
@@ -18,6 +19,11 @@ class HomePage extends Component {
               </TopParallax>
             </FadeAnimation>
           </div>
+          <Arrow
+            position='bottom'
+            arrowColor='000000'
+            wrapper={{ color: 'ffffff', shape: 'circle' }}
+          />
         </div>
         <LazyLoad
           retrieveData={this.props.retrieveData}

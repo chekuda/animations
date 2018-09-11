@@ -7,7 +7,8 @@ const fadeAnimations = {
   fadeIn: 'in',
   fadeUp: 'up',
   fadeRight: 'right',
-  fadeLeft: 'left'
+  fadeLeft: 'left',
+  fadeDown: 'down'
 }
 
 class FadeAnimation extends Component {
