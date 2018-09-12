@@ -5,20 +5,18 @@ import LazyLoad from '../Components/LazyLoad'
 import FadeAnimation from '../Components/FadeAnimation'
 import Arrow from '../Components/Arrow'
 
+import { scroll } from '../helpers/scroll'
+
 import './HomePage.css';
 
 class HomePage extends Component {
   scrollToBottom = () => {
     const totalPage = document.body.scrollHeight
-    const totalScroll = (window.scrollY + window.innerHeight) === totalPage
+    const totalYScroll = (window.scrollY + window.innerHeight) === totalPage
       ? totalPage
       : window.innerHeight
 
-    window.scroll({
-      top: totalScroll,
-      left: 0,
-      behavior: 'smooth'
-    })
+    scroll(0, totalYScroll)
   }
 
   render() {
