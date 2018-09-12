@@ -27,7 +27,7 @@ const Arrow = ({
   position,
   customDimesions,
   arrowColor,
-  wrapper, 
+  wrapper,
   handlerOnClick
 }) => {
   return (
@@ -41,7 +41,7 @@ const Arrow = ({
         <div
           className={`arrow ${direction[position]}`}
           style={{
-            ...customDimesions, 
+            ...customDimesions,
             borderColor: `#${arrowColor}`
           }}
           onClick={handlerOnClick}

@@ -7,19 +7,19 @@ class DotLoader extends Component {
     active: 0,
     maxDots: 5
   }
-  changeActive() {
-    setInterval(() => {
-      const currentActive = this.state.active + 1
-      this.setState({
-        active: currentActive > this.state.maxDots ? 0 : currentActive 
-      })
-    }, 500)
+  changeActive = () => {
+    const currentActive = this.state.active + 1
+
+    this.setState({
+      active: currentActive > this.state.maxDots ? 0 : currentActive
+    })
   }
   componentDidMount() {
-    this.changeActive()
+    const interval = setInterval(this.changeActive, 500)
+    this.setState({ interval })
   }
   componentWillUnmount() {
-    clearInterval(this.changeActive)
+    clearInterval(this.state.interval)
   }
   render() {
     return <div className='dot-loader'>
