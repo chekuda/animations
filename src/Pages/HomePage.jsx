@@ -45,7 +45,7 @@ class HomePage extends Component {
             this.props.feed.map((hike, index) => {
               return (
                 <FadeAnimation
-                  key={index}
+                  key={hike.id}
                   types={['fadeIn', 'fadeUp']}
                   time={'one'}
                 >
