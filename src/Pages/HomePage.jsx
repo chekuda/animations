@@ -8,7 +8,7 @@ import Arrow from '../Components/Arrow'
 import './HomePage.css';
 
 class HomePage extends Component {
-  handlerOnClick = () => {
+  scrollToBottom = () => {
     const totalPage = document.body.scrollHeight
     const totalScroll = (window.scrollY + window.innerHeight) === totalPage
       ? totalPage
@@ -35,8 +35,7 @@ class HomePage extends Component {
             <Arrow
               position='bottom'
               arrowColor='ffffff'
-              // wrapper={{ color: 'ffffff', shape: 'square' }}
-              handlerOnClick={this.handlerOnClick}
+              handlerOnClick={this.scrollToBottom}
             />
         </div>
         <LazyLoad

@@ -45,7 +45,7 @@ class LazyLoad extends Component {
     return (
       <Fragment>
         { this.props.children }
-        { this.state.loading && <Loader /> }
+        { this.state.loading && <Loader type='jose'/> }
       </Fragment>
     )
   }
