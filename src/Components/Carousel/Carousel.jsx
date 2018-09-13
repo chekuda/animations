@@ -9,33 +9,31 @@ class Carousel extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      slides: [],
-      currentIndex: 0
+      slides: []
     }
+    this.display = props.totalToDisplay > props.feed.length
+      ? props.feed.length
+      : props.totalToDisplay
+
   }
 
-  getCurrentIndex(index) {
-    const { feed } = this.props
-    let newIndex = index
-    if(index < 0) {
-      newIndex = feed.length - 1
-    } else if(index > feed.length - 1) {
-      newIndex = 0
-    }
-    return newIndex
+  getCurrentIndex(currentPos, direction, length) {
+    const move = direction % length
+
+    return (currentPos + move + length) % length
   }
 
   setSlides = direction => {
     const { slides } = this.state
-    const directionToMove = direction === 'left' ? 1 : -1
-    const guideId = (direction === 'left' ? slides[slides.length -1] : slides[0]).id
+    const directionToMove = direction === 'left' ? -1 : 1
+    const guideId = (direction === 'left' ? slides[0] : slides[slides.length -1]).id
     const realPosition = this.props.feed.reduce((acc, ele, index) => guideId === ele.id ? index : acc ,0)
-    const newCurrentIndex = this.getCurrentIndex(realPosition + directionToMove)
+    const newCurrentIndex = this.getCurrentIndex(realPosition, directionToMove, this.props.feed.length)
     const newEntrySlide = this.props.feed.find((_, index) => index === newCurrentIndex)
 
     const newSlides = direction === 'left'
-      ? [...slides.slice(1), newEntrySlide]
-      : [newEntrySlide, ...slides.slice(0, slides.length -1)]
+      ? [newEntrySlide, ...slides.slice(0, slides.length -1)]
+      : [...slides.slice(1), newEntrySlide]
 
     this.setState({
       currentIndex: newCurrentIndex,
@@ -44,11 +42,11 @@ class Carousel extends Component {
   }
 
   setWrapperWidth() {
-    const { totalToDisplay, imageSize } = this.props
+    const { imageSize } = this.props
     const viewPortWidth = window.innerWidth
-    const sumMargin = 10 * (totalToDisplay + 1)
+    const sumMargin = 10 * (this.display + 1)
 
-    const wrapperWidth = totalToDisplay * imageSize.width + sumMargin
+    const wrapperWidth = this.display * imageSize.width + sumMargin
 
     this.setState({
       finalWrapperWidth: wrapperWidth > viewPortWidth ? viewPortWidth : wrapperWidth
@@ -56,11 +54,11 @@ class Carousel extends Component {
   }
 
   componentDidMount() {
-    const { feed, totalToDisplay } = this.props
+    const { feed } = this.props
 
     this.setWrapperWidth()
     this.setState({
-      slides: feed.filter((_, index) => index < totalToDisplay)
+      slides: feed.filter((_, index) => index < this.display)
     })
   }
 
