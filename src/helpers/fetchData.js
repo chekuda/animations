@@ -6,11 +6,12 @@ const ALLFEEDS = feed() || {}
 export const myFetch = (type, currentIndex, amount) => {
   return new Promise((resolve, reject) => {
     const allFeeds = ALLFEEDS[type] || []
-    const newIndex = currentIndex + amount
+    const currentAmount = amount || allFeeds.length
+    const newIndex = currentIndex + currentAmount
 
     const fetchedFeeds = allFeeds
       .slice(currentIndex)
-      .filter((_, index) => index <= amount)
+      .filter((_, index) => index <= currentAmount)
 
     const dataToReturn = {
       fetchedFeeds,

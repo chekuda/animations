@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import HomePage from '../../Pages/HomePage'
+import HomePage from '../../Pages/HomePage/HomePage'
 
 import { myFetch } from '../../helpers/fetchData'
 

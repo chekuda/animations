@@ -1,0 +1,23 @@
+.carousel-wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel-slides {
+  margin: 0 5px;
+  display: flex;
+  height: 300px;
+  overflow: scroll;
+}
+.slide {
+  margin: 0px 5px;
+  height: 100%;
+  width: 300px;
+}
+.slide img{
+  height: 100%;
+  width: 300px;
+  object-fit: cover;
+}

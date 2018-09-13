@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
 
-import TopParallax from '../Components/TopParallax'
-import LazyLoad from '../Components/LazyLoad'
-import FadeAnimation from '../Components/FadeAnimation'
-import Arrow from '../Components/Arrow'
+import TopParallax from '../../Components/TopParallax'
+import LazyLoad from '../../Components/LazyLoad'
+import FadeAnimation from '../../Components/FadeAnimation'
+import Arrow from '../../Components/Arrow'
 
-import { scroll } from '../helpers/scroll'
+import { scroll } from '../../helpers/scroll'
 
 import './HomePage.css';
 
@@ -34,6 +34,7 @@ class HomePage extends Component {
               position='bottom'
               arrowColor='ffffff'
               handlerOnClick={this.scrollToBottom}
+              wrapper={{color: 'ff0000', shape: 'circle'}}
             />
         </div>
         <LazyLoad
@@ -56,12 +57,8 @@ class HomePage extends Component {
                           <p>{hike.description}</p>
                         </div>
                     </div>
-                    <div
-                      className={`${index % 2 === 0 ? 'first' : 'second'} section-image`}
-                      style={{
-                        background: `url('${hike.image.src}')`
-                      }}
-                      >
+                    <div className={`${index % 2 === 0 ? 'first' : 'second'} section-image`} >
+                      <img src={hike.image.src} />
                     </div>
                   </div>
                 </FadeAnimation>

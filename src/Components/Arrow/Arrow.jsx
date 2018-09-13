@@ -35,7 +35,7 @@ const Arrow = ({
       style={{
         background: `#${wrapper.color}`
       }}
-      className={`arrow-wrapper ${arrowClasses[position]} ${wrapperSquare[wrapper.shape]}`}
+      className={`arrow-wrapper ${arrowClasses[position || 'bottom']} ${wrapperSquare[wrapper.shape]}`}
     >
       <FadeAnimation types={['fadeIn', 'fadeDown']} time={'one'}>
         <div
@@ -55,7 +55,7 @@ const Arrow = ({
 Arrow.defaultProps = {
   position: 'bottom',
   customDimesions: {},
-  borderColor: 'fff',
+  arrowColor: 'fff',
   wrapper: {
     color: 'transparent',
     shape: 'square'
@@ -66,7 +66,7 @@ Arrow.defaultProps = {
 Arrow.propTypes = {
   position: PropTypes.string,
   customStyles: PropTypes.object,
-  borderColor: PropTypes.string,
+  arrowColor: PropTypes.string,
   wrapper: PropTypes.shape({
     color: PropTypes.string,
     shape: PropTypes.string
