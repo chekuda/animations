@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Arrow from '../Arrow'
+import FadeAnimation from '../FadeAnimation'
 
 import './Carousel.css'
 
@@ -69,8 +70,9 @@ class Carousel extends Component {
       >
         <Arrow
           position='left'
-          arrowColor='ff0000'
+          arrowColor='000000'
           handlerOnClick={() => this.setSlides('left')}
+          arrowWidth={3}
         />
         <div className='carousel-slides'>
           {
@@ -79,15 +81,16 @@ class Carousel extends Component {
                 key={slide.id}
                 className='slide'
               >
-                <img src={slide.image.src} />
+                  <img src={slide.image.src} />
               </div>
             ))
           }
         </div>
         <Arrow
           position='right'
-          arrowColor='ff0000'
+          arrowColor='000000'
           handlerOnClick={() => this.setSlides('right')}
+          arrowWidth={3}
         />
       </div>
     )

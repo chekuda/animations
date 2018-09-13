@@ -35,6 +35,8 @@ class HomePage extends Component {
               arrowColor='ffffff'
               handlerOnClick={this.scrollToBottom}
               wrapper={{color: 'ff0000', shape: 'circle'}}
+              animation={['fadeIn']}
+              arrowWidth={5}
             />
         </div>
         <LazyLoad

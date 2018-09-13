@@ -1,7 +1,7 @@
 .carousel-wrapper {
   position: relative;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0;
   width: 100%;
   overflow: hidden;
 }
@@ -9,7 +9,8 @@
   margin: 0 5px;
   display: flex;
   height: 300px;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 .slide {
   margin: 0px 5px;

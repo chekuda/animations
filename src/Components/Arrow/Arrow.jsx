@@ -28,7 +28,9 @@ const Arrow = ({
   customDimesions,
   arrowColor,
   wrapper,
-  handlerOnClick
+  handlerOnClick,
+  animation,
+  arrowWidth
 }) => {
   return (
     <div
@@ -37,9 +39,9 @@ const Arrow = ({
       }}
       className={`arrow-wrapper ${arrowClasses[position || 'bottom']} ${wrapperSquare[wrapper.shape]}`}
     >
-      <FadeAnimation types={['fadeIn', 'fadeDown']} time={'one'}>
+      <FadeAnimation types={animation} time={'one'}>
         <div
-          className={`arrow ${direction[position]}`}
+          className={`arrow ${direction[position]} width-${arrowWidth}`}
           style={{
             ...customDimesions,
             borderColor: `#${arrowColor}`
@@ -56,10 +58,12 @@ Arrow.defaultProps = {
   position: 'bottom',
   customDimesions: {},
   arrowColor: 'fff',
+  animation: [],
   wrapper: {
     color: 'transparent',
     shape: 'square'
   },
+  arrowWidth: 2,
   handlerOnClick: () => {}
 }
 
@@ -71,7 +75,9 @@ Arrow.propTypes = {
     color: PropTypes.string,
     shape: PropTypes.string
   }),
-  handlerOnClick: PropTypes.func
+  handlerOnClick: PropTypes.func,
+  animation: PropTypes.array,
+  arrowWidth: PropTypes.string
 }
 
 export default Arrow
