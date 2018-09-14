@@ -22,3 +22,20 @@
   width: 300px;
   object-fit: cover;
 }
+
+.slide.moveRight {
+  animation: MoveRight .5s ease-in-out forwards;
+}
+.slide.moveLeft {
+  animation: MoveLeft .5s ease-in-out forwards;
+}
+
+@keyframes MoveRight {
+  0% { transform: translate3d(0)}
+  100% { transform: translate3d(-310px, 0, 0)}
+}
+
+@keyframes MoveLeft {
+  0% { transform: translate3d(0)}
+  100% { transform: translate3d(310px, 0, 0)}
+}

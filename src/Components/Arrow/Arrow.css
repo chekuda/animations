@@ -3,6 +3,7 @@
   overflow: hidden;
   padding: 10px;
   background: transparent;
+  z-index: 10;
 }
 
 .bottom-center {

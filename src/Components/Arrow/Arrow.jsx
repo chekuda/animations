@@ -77,7 +77,7 @@ Arrow.propTypes = {
   }),
   handlerOnClick: PropTypes.func,
   animation: PropTypes.array,
-  arrowWidth: PropTypes.string
+  arrowWidth: PropTypes.number
 }
 
 export default Arrow

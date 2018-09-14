@@ -10,7 +10,8 @@ class Carousel extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      slides: []
+      slides: [],
+      animation: ''
     }
     this.display = props.totalToDisplay > props.feed.length
       ? props.feed.length
@@ -24,8 +25,10 @@ class Carousel extends Component {
     return (currentPos + move + length) % length
   }
 
-  setSlides = direction => {
-    const { slides } = this.state
+  setSlides = (i) => {
+    if(i > 0) return
+    console.log(i)
+    const { slides, direction } = this.state
     const directionToMove = direction === 'left' ? -1 : 1
     const guideId = (direction === 'left' ? slides[0] : slides[slides.length -1]).id
     const realPosition = this.props.feed.reduce((acc, ele, index) => guideId === ele.id ? index : acc ,0)
@@ -38,19 +41,28 @@ class Carousel extends Component {
 
     this.setState({
       currentIndex: newCurrentIndex,
-      slides: newSlides
+      slides: newSlides,
+      animation: ''
+    })
+  }
+
+  moveCarousel = direction => {
+    this.setState({
+      animation: direction === 'left' ? 'moveLeft' : 'moveRight',
+      direction
     })
   }
 
   setWrapperWidth() {
     const { imageSize } = this.props
     const viewPortWidth = window.innerWidth
-    const sumMargin = 10 * (this.display + 1)
+    const sumMargin = 10 * this.display
 
     const wrapperWidth = this.display * imageSize.width + sumMargin
 
     this.setState({
-      finalWrapperWidth: wrapperWidth > viewPortWidth ? viewPortWidth : wrapperWidth
+      finalWrapperWidth: wrapperWidth > viewPortWidth ? viewPortWidth : wrapperWidth,
+      carouselWidth: (this.display + 2) * imageSize.width + sumMargin // sum 2 to hidden them and add the animation
     })
   }
 
@@ -59,9 +71,10 @@ class Carousel extends Component {
 
     this.setWrapperWidth()
     this.setState({
-      slides: feed.filter((_, index) => index < this.display)
+      slides: feed.filter((_, index) => index < (this.display + 2)) // sum 2 to hidden them and add the animation
     })
   }
+
 
   render() {
     return (
@@ -71,17 +84,21 @@ class Carousel extends Component {
         <Arrow
           position='left'
           arrowColor='000000'
-          handlerOnClick={() => this.setSlides('left')}
+          handlerOnClick={() => this.moveCarousel('left')}
           arrowWidth={3}
-        />
-        <div className='carousel-slides'>
+          />
+        <div className={`carousel-slides`}
+          style={{ width: `${this.state.carouselWidth}px`,
+          transform: 'translate3d(-310px, 0, 0)' }}
+        >
           {
-            this.state.slides.map(slide => (
+            this.state.slides.map((slide, i) => (
               <div
                 key={slide.id}
-                className='slide'
+                className={`slide ${this.state.animation}`}
+                onAnimationEnd={() => this.setSlides(i)}
               >
-                  <img src={slide.image.src} />
+                <img src={slide.image.src} />
               </div>
             ))
           }
@@ -89,7 +106,7 @@ class Carousel extends Component {
         <Arrow
           position='right'
           arrowColor='000000'
-          handlerOnClick={() => this.setSlides('right')}
+          handlerOnClick={() => this.moveCarousel('right')}
           arrowWidth={3}
         />
       </div>
