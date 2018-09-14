@@ -25,15 +25,15 @@ class Carousel extends Component {
     return (currentPos + move + length) % length
   }
 
-  setSlides = (i) => {
-    if(i > 0) return
-    console.log(i)
-    const { slides, direction } = this.state
+  setSlides = () => {
+    const { slides, direction, slidesUpdated } = this.state
+    const { feed } = this.props
+    if(slidesUpdated) return
     const directionToMove = direction === 'left' ? -1 : 1
     const guideId = (direction === 'left' ? slides[0] : slides[slides.length -1]).id
-    const realPosition = this.props.feed.reduce((acc, ele, index) => guideId === ele.id ? index : acc ,0)
-    const newCurrentIndex = this.getCurrentIndex(realPosition, directionToMove, this.props.feed.length)
-    const newEntrySlide = this.props.feed.find((_, index) => index === newCurrentIndex)
+    const realPosition = feed.reduce((acc, ele, index) => guideId === ele.id ? index : acc ,0)
+    const newCurrentIndex = this.getCurrentIndex(realPosition, directionToMove, feed.length)
+    const newEntrySlide = feed.find((_, index) => index === newCurrentIndex)
 
     const newSlides = direction === 'left'
       ? [newEntrySlide, ...slides.slice(0, slides.length -1)]
@@ -42,18 +42,21 @@ class Carousel extends Component {
     this.setState({
       currentIndex: newCurrentIndex,
       slides: newSlides,
-      animation: ''
+      animation: '',
+      slidesUpdated: true
     })
   }
 
   moveCarousel = direction => {
     this.setState({
       animation: direction === 'left' ? 'moveLeft' : 'moveRight',
-      direction
+      direction,
+      slidesUpdated: false
     })
   }
 
   setWrapperWidth() {
+    const extraSideSlides = 2
     const { imageSize } = this.props
     const viewPortWidth = window.innerWidth
     const sumMargin = 10 * this.display
@@ -62,7 +65,7 @@ class Carousel extends Component {
 
     this.setState({
       finalWrapperWidth: wrapperWidth > viewPortWidth ? viewPortWidth : wrapperWidth,
-      carouselWidth: (this.display + 2) * imageSize.width + sumMargin // sum 2 to hidden them and add the animation
+      carouselWidth: (this.display + extraSideSlides) * imageSize.width + sumMargin // sum 2 to hidden them and add the animation
     })
   }
 
@@ -96,7 +99,7 @@ class Carousel extends Component {
               <div
                 key={slide.id}
                 className={`slide ${this.state.animation}`}
-                onAnimationEnd={() => this.setSlides(i)}
+                onAnimationEnd={this.setSlides}
               >
                 <img src={slide.image.src} />
               </div>
