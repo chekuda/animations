@@ -21,7 +21,9 @@ class CarouselContainer extends Component {
       })
   }
   render() {
-    return this.state.feed.length ? <Carousel feed={this.state.feed}/> : null
+    return this.state.feed.length
+      ? <Carousel feed={this.state.feed} margin='10' imageSize={{ width: 300, height: 300 }}/>
+      : null
   }
 }
 

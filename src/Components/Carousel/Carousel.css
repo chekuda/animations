@@ -6,20 +6,18 @@
   overflow: hidden;
 }
 .carousel-slides {
-  margin: 0 5px;
   display: flex;
-  height: 300px;
   overflow-x: scroll;
   overflow-y: hidden;
 }
 .slide {
-  margin: 0px 5px;
+  margin: 0 5px;
   height: 100%;
   width: 300px;
 }
 .slide img{
   height: 100%;
-  width: 300px;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -32,10 +30,10 @@
 
 @keyframes MoveRight {
   0% { transform: translate3d(0)}
-  100% { transform: translate3d(-310px, 0, 0)}
+  100% { transform: translate3d(-300px, 0, 0)}
 }
 
 @keyframes MoveLeft {
   0% { transform: translate3d(0)}
-  100% { transform: translate3d(310px, 0, 0)}
+  100% { transform: translate3d(300px, 0, 0)}
 }

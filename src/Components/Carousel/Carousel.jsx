@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Arrow from '../Arrow'
-import FadeAnimation from '../FadeAnimation'
 
 import './Carousel.css'
 
@@ -16,7 +15,7 @@ class Carousel extends Component {
     this.display = props.totalToDisplay > props.feed.length
       ? props.feed.length
       : props.totalToDisplay
-
+    this.hiddenSlides = 2 // sum 2 to hidden them and add the animation
   }
 
   getCurrentIndex(currentPos, direction, length) {
@@ -56,16 +55,15 @@ class Carousel extends Component {
   }
 
   setWrapperWidth() {
-    const extraSideSlides = 2
-    const { imageSize } = this.props
+    const { imageSize, margin } = this.props
     const viewPortWidth = window.innerWidth
-    const sumMargin = 10 * this.display
+    const sumMargin = margin * this.display
 
     const wrapperWidth = this.display * imageSize.width + sumMargin
 
     this.setState({
-      finalWrapperWidth: wrapperWidth > viewPortWidth ? viewPortWidth : wrapperWidth,
-      carouselWidth: (this.display + extraSideSlides) * imageSize.width + sumMargin // sum 2 to hidden them and add the animation
+      wrapperWidth: wrapperWidth > viewPortWidth ? viewPortWidth : wrapperWidth,
+      carouselWidth: (this.display + this.hiddenSlides) * imageSize.width + sumMargin
     })
   }
 
@@ -74,15 +72,17 @@ class Carousel extends Component {
 
     this.setWrapperWidth()
     this.setState({
-      slides: feed.filter((_, index) => index < (this.display + 2)) // sum 2 to hidden them and add the animation
+      slides: feed.filter((_, index) => index < (this.display + this.hiddenSlides))
     })
   }
 
 
   render() {
+    const { imageSize, margin } = this.props
+
     return (
       <div className='carousel-wrapper'
-        style={{ width: this.state.finalWrapperWidth }}
+        style={{ width: this.state.wrapperWidth }}
       >
         <Arrow
           position='left'
@@ -91,8 +91,10 @@ class Carousel extends Component {
           arrowWidth={3}
           />
         <div className={`carousel-slides`}
-          style={{ width: `${this.state.carouselWidth}px`,
-          transform: 'translate3d(-310px, 0, 0)' }}
+          style={{
+            width: `${this.state.carouselWidth}px`,
+            transform: `translate3d(-${imageSize.width}px, 0, 0)`
+          }}
         >
           {
             this.state.slides.map((slide, i) => (
@@ -100,6 +102,10 @@ class Carousel extends Component {
                 key={slide.id}
                 className={`slide ${this.state.animation}`}
                 onAnimationEnd={this.setSlides}
+                style={{
+                  margin: `0 ${margin}px`,
+                  width: `${imageSize.width}px`
+                }}
               >
                 <img src={slide.image.src} />
               </div>
@@ -120,6 +126,7 @@ class Carousel extends Component {
 Carousel.defaultProps = {
   feed: [],
   totalToDisplay: 3,
+  margin: 5,
   imageSize: {
     height: 300,
     width: 300
@@ -134,7 +141,8 @@ Carousel.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number
   }),
-  currentIndex: PropTypes.number
+  currentIndex: PropTypes.number,
+  marginBetweenSlides: PropTypes.number
 }
 
 export default Carousel
