@@ -8,6 +8,7 @@
     "react-scripts": "1.1.5"
   },
   "scripts": {
+    "deploy": "npm run build && mv build/index.html build/200.html && surge build --domain https://checa-page.surge.sh",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

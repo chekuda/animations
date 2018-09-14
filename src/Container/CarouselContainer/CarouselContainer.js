@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Carousel from '../../Components/Carousel'
+import FadeAnimation from '../../Components/FadeAnimation'
 
 import { myFetch } from '../../helpers/fetchData'
 
@@ -22,7 +23,7 @@ class CarouselContainer extends Component {
   }
   render() {
     return this.state.feed.length
-      ? <Carousel feed={this.state.feed} margin='10' imageSize={{ width: 300, height: 300 }}/>
+      ? <FadeAnimation types={['fadeIn']} time={'one'}><Carousel feed={this.state.feed} margin='5' imageSize={{ width: 300, height: 300 }}/></FadeAnimation>
       : null
   }
 }
